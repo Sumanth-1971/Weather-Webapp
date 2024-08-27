@@ -1,99 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather APP</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+  <link rel="stylesheet" href="main.css" />
 </head>
 <body>
-    <div class="card">
-        <div class="search">
-            <input type="text" placeholder="Enter city Name: " spellcheck="false">
-            <button><img src="images/search.png" alt="Search"></button>
-        </div>
-        <div class="error">
-            <p>Invalid City Name</p>
-        </div>
-        <div class="weather">
-            <img src="images/rain.png" alt="Rain" class="weather-icon">
-            <h1 class="temp">22&deg;C</h1>
-            <h2 class="city">Hyderabad</h2>
-            <div class="details">
-                <div class="col">
-                    <img src="images/humidity.png" alt="Humidity">
-                    <div>
-                        <p class="humidity">50%</p>
-                        <p>Humidity</p>
-                    </div>
-                </div>
-                <div class="col">
-                    <img src="images/wind.png" alt="wind">
-                    <div>
-                        <p class="wind">15 Km/H</p>
-                        <p>Wind Speed</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        const apiKey = "c1d5949b112974a3427e9316c694949e";
-        const apiURL = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
-
-        const searchbox = document.querySelector(".search input");
-        const searchbtn = document.querySelector(".search button");
-        const weatherIcon = document.querySelector(".weather-icon");
-
-        async function checkWeather(city){
-            const response = await fetch(apiURL + city + `&appid=${apiKey}`);
-
-            if(response.status == 404){
-                document.querySelector(".error").style.display="block";
-                document.querySelector(".weather").style.display="none";
-            }
-            else{
-                var data = await response.json();
-
-            console.log(data);
-
-            document.querySelector(".city").innerHTML = data.name;
-            document.querySelector(".temp").innerHTML = data.main.temp + "&deg;C";
-            document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
-            document.querySelector(".wind").innerHTML = data.wind.speed + " km/h";
-
-            if(data.weather[0].main == "Clouds"){
-                weatherIcon.src = "images/clouds.png";
-            }
-            else if(data.weather[0].main == "Clear"){
-                weatherIcon.src = "images/clear.png";
-            }
-            else if(data.weather[0].main == "Rain"){
-                weatherIcon.src = "images/rain.png";
-            }
-            else if(data.weather[0].main == "Drizzle"){
-                weatherIcon.src = "images/drizzle.png";
-            }
-            else if(data.weather[0].main == "Mist"){
-                weatherIcon.src = "images/mist.png";
-            }
-            else if(data.weather[0].main == "Haze"){
-                weatherIcon.src = "images/mist.png";
-            }
-
-            document.querySelector(".weather").style.display = "block";
-            document.querySelector(".error").style.display="none";
-            
-            }
-            
-            
-        }
-
-        searchbtn.addEventListener("click", ()=>{
-            checkWeather(searchbox.value);
-        })
-        
-    </script>
+  <div class="app-wrap">
+    <header>
+      <input type="text" autocomplete="off" class="search-box" placeholder="Search for a city..." />
+    </header>
+    <main>
+      <section class="location">
+        <div class="city">New York, US</div>
+        <div class="date">Wednesday 22 July 2020</div>
+      </section>
+      <div class="current">
+        <div class="temp">15<span>°c</span></div>
+        <div class="weather">Sunny</div>
+        <div class="hi-low">13°c / 16°c</div>
+      </div>
+    </main>
+  </div>
+  <script src="main.js"></script>
 </body>
 </html>
